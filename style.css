@@ -1024,7 +1024,7 @@ footer {
 
 .footer-content h3 {
     font-size: 26px;
-    color: var(--white);
+    color: #ffffff;
     margin-bottom: 25px;
 }
 
@@ -1057,7 +1057,7 @@ footer {
 }
 
 footer p {
-    color: rgba(0, 0, 0, 0.4);
+    color: #cccccc;
     font-size: 15px;
 }
 
