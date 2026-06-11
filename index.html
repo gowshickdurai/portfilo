@@ -49,7 +49,7 @@
             <div class="hero-image">
                 <div class="img-placeholder">
                     <!-- Professional Profile Image Placeholder -->
-                    <img src="https://ui-avatars.com/api/?name=Gowshick+Durai&size=400&background=171717&color=ff6b35" alt="Gowshick Durai D R">
+                    <i class="fas fa-user default-avatar"></i>
                 </div>
             </div>
         </section>
@@ -436,6 +436,47 @@
         }, { threshold: 0.5 });
 
         statNumbers.forEach(stat => statObserver.observe(stat));
+
+        // Contact Form Submission Handling
+        const contactForm = document.getElementById('contactForm');
+        if (contactForm) {
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const submitBtn = contactForm.querySelector('button[type="submit"]');
+                const originalBtnText = submitBtn.innerHTML;
+                submitBtn.innerHTML = 'Sending... <i class="fas fa-spinner fa-spin"></i>';
+                submitBtn.disabled = true;
+
+                const formData = new FormData(contactForm);
+                const data = Object.fromEntries(formData.entries());
+
+                fetch("https://formsubmit.co/ajax/gowshickdurai2007@gmail.com", {
+                    method: "POST",
+                    headers: { 
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if(data.success) {
+                        alert("Message sent successfully! Thank you for reaching out.");
+                        contactForm.reset();
+                    } else {
+                        alert("Something went wrong. Please try again.");
+                    }
+                })
+                .catch(error => {
+                    alert("Error sending message. Please try again later.");
+                    console.error("Error:", error);
+                })
+                .finally(() => {
+                    submitBtn.innerHTML = originalBtnText;
+                    submitBtn.disabled = false;
+                });
+            });
+        }
     </script>
 </body>
 </html>
